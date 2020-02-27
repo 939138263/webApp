@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/guonei.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+    <style>.chart{height:200px;margin:0;padding:0}</style>
+</head>
+<body>
+<div class="mui-content" id="xinshou">
+    <div class="messagebox">
+        <p class="xuxianbox" style="line-height:.4rem;text-align:center">认证用户可进行1-10VRC议价交易！</p>
+    </div>
+    <div class="guoneibox" style="position:relative">
+        <ul class="guoneinum" style="margin-top:.15rem">
+            <li><i style="font-size:.24rem;font-style:normal">当前价：</i> <span v-text="nowprice">111</span> <i style="font-size:.24rem;font-style:normal">CNY</i></li>
+        </ul>
+        <div class="mui-input-row setnumbox">
+            <span>减价</span>
+            <div class="setnum">
+                <div class="reduce" v-on:tap="reducenum">
+                    -
+                </div>
+                <input type="number" name="price" id="price" :value="total" v-model.number="total" v-on:blur="limitzero" v-on:input="limitsmall" />
+                <div class="add" v-on:tap="addnum">
+                    +
+                </div>
+            </div>
+            <span>加价</span>
+        </div>
+        <div class="mui-input-row mui-input-range field-contain">
+            <div>
+                <input type="range" id="field-range" step="1" value="1" min="1" max="10" v-model="range" />
+            </div>
+            <div style="margin-top:.3rem;text-align:center">
+                <input type="number" id="field-range-input" v-model.number="range" @blur="checkNumber(range)" @input="limitbig(range)" placeholder="请输入10的倍数" />
+            </div>
+        </div>
+        <div class="guoneitotal">
+            <p>买入<span style="color:#02d2f5" v-text="range"></span>VRC，出价<span v-text="total"></span>元，总价<span v-text="totalprice" style="color:#02d2f5"></span>元</p>
+            <button type="button" class="guabuy" v-show="buybtn">挂买单</button>
+            <div class="xuzhi" style="margin-top:.15rem">
+                <a href="xuzhi.html?newid=2" data-title="新手挂单交易须知"><span class="iconfont"></span> <span>新手挂单交易须知</span></a>
+            </div>
+        </div>
+        <ul class="tapbox2">
+            <li class="tapactive" data-index="show3"><span>买家看板<i></i></span></li>
+            <li data-index="show4"><span>交易信箱<i></i></span></li>
+        </ul>
+        <ul class="showbox2">
+            <li id="show3" class="showactive">
+                <div class="mui-scroll-wrapper scw" id="scroll3">
+                    <div class="mui-scroll ms">
+                        <ul class="messagebox" href="#topPopover">
+                            <li v-for="lists in list">
+                                <div class="code">
+                                    <div class="codeleft">
+                                        <div class="circle"></div>
+                                        <p v-text="'单号：'+lists.code">单号：666777888999</p>
+                                    </div>
+                                    <div class="time" v-text="lists.time">
+                                        06月12月 15时30分
+                                    </div>
+                                </div>
+                                <div class="info" v-text="lists.remark">
+                                    收到风刀霜剑（ID：123456）转入10VRC，请确认接收。
+                                </div>
+                                <div class="btnbox">
+                                    <button class="heta" type="button" v-on:tap="confirmtrade2(lists.id,lists.newStep,$event)">卖给ta</button>
+                                </div></li>
+                        </ul>
+                    </div>
+                </div></li>
+            <li id="show4">
+                <div class="mui-scroll-wrapper scw" id="scroll4">
+                    <div class="mui-scroll ms">
+                        <ul class="messagebox" href="#topPopover">
+                            <li v-for="lists in list2">
+                                <div class="code">
+                                    <div class="codeleft">
+                                        <div class="circle"></div>
+                                        <p v-text="'单号：'+lists.code">单号：666777888999</p>
+                                    </div>
+                                    <div class="time" v-text="lists.time">
+                                        06月12月 15时30分
+                                    </div>
+                                </div>
+                                <div class="info" v-text="lists.remark">
+                                    收到风刀霜剑（ID：123456）转入10VRC，请确认接收。
+                                </div>
+                                <div class="btnbox">
+                                    <button class="bottomPopover" type="button" v-show="lists.pushTel!=null" v-on:tap="lookinfo(lists)" v-text="ortitle(lists.state)">交易账号</button>
+                                    <button class="succ" type="button" v-show="lists.newStep!=0" :class="" v-on:tap="confirmtrade(lists.amount,lists.id,lists.newStep,$event)">确认交易</button>
+                                    <button class="esc" type="button" v-show="lists.cancelStep!=0" v-on:tap="esctrade(lists.id,lists.cancelStep)">取消交易</button>
+                                </div></li>
+                        </ul>
+                    </div>
+                </div></li>
+        </ul>
+    </div>
+    <div id="popover" class="mui-popover mui-popover-bottom">
+        <div class="account" id="account">
+            <div class="toptitle">
+                <p v-show="tradeinfo.state==-1">卖家资料</p>
+                <p v-show="tradeinfo.state==1">买家资料</p>
+                <div class="iconfont closebtn" v-on:tap="closeinfo">
+                    
+                </div>
+            </div>
+            <ul class="conlist">
+                <li><span>开户名</span> <input type="text" name="" id="accountName" :value="tradeinfo.accountName" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#accountName">复制</button></li>
+                <li><span>开户行</span> <input type="text" name="" id="openingBank" :value="tradeinfo.openingBank" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#openingBank">复制</button></li>
+                <li><span>账号</span> <input type="text" name="" id="cardNumber" :value="tradeinfo.cardNumber" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#cardNumber">复制</button></li>
+                <li><span>微信</span> <input type="text" name="" id="weixin" :value="tradeinfo.weixin" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#weixin">复制</button></li>
+                <li><span>支付宝</span> <input type="text" name="" id="alipay" :value="tradeinfo.alipay" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#alipay">复制</button></li>
+                <li><span>手机号</span> <input type="text" name="" id="tel" :value="tradeinfo.tel" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#tel">复制</button></li>
+                <li><p>请严格按照以上资料进行打款交易，请勿相信中介！非平台公布资料交易，后果自负！</p></li>
+            </ul>
+        </div>
+    </div>
+    <div class="shuaxin">
+        <span class="iconfont" style="font-size:.4rem"></span>
+    </div>
+</div>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/clipboard.min.js" charset="utf-8"></script>
+<script src="../js/libs/vue.min.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/sub/xinshou.js" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Mine</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/mine.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="mui-content" id="mine">
+    <div class="topbox">
+        <div class="headimg">
+            <a href="../sub/sethead.html" id="person" data-title="设置头像"><img id="myimg" :src="photo" /></a>
+        </div>
+        <div class="toptext">
+            <p v-text="'ID：'+myid">ID：113266</p>
+            <p v-text="'等级：'+mygrade">昵称：超人</p>
+        </div>
+        <a class="norenzheng" href="../sub/real.html" style="color:#666" data-title="实名认证" v-if="isReally==0">未认证</a>
+        <a class="renzheng" href="../sub/person.html" style="color:#00b738" data-title="个人资料" v-else="">已认证</a>
+        <ul class="topbtnbox">
+            <li><a href="../sub/message.html" class="iconfont" id="message" data-title="消息通知"></a>
+                <div v-show="isRead!=0" class="redcircle"></div></li>
+            <li><a href="../sub/setting.html" class="iconfont" id="setting" data-title="设置"></a></li>
+        </ul>
+    </div>
+    <div class="numberbox">
+        <p>资产总额</p>
+        <div v-text="vrcToTal">
+            19,000.000000
+        </div>
+        <ul>
+            <li><span class="iconfont" id="keyong"></span><span v-text="'可用VRC：'+keyong">可用VRC：9800</span></li>
+            <li><span class="iconfont" id="dongjie"></span><span v-text="'冻结VRC：'+vrcFrozen">冻结VRC：10.000</span></li>
+        </ul>
+    </div>
+    <ul class="gongnengbox">
+        <li><a href="../sub/person.html" data-title="个人资料">
+            <div class="icon">
+                <i class="smallicon1"></i>
+            </div><span>个人资料</span></a></li>
+        <li><a href="../sub/bill.html" data-title="账单中心">
+            <div class="icon">
+                <i class="smallicon2"></i>
+            </div><span>账单中心</span></a></li>
+        <li><a href="../sub/vrhpacket.html" data-title="VRH钱包">
+            <div class="icon">
+                <i class="smallicon3"></i>
+            </div><span>VRH钱包</span></a></li>
+        <li><a href="../sub/customer.html" data-title="客服中心">
+            <div class="icon">
+                <i class="smallicon4"></i>
+            </div><span>客服中心</span></a></li>
+        <li><a href="../sub/packet.html" data-title="任务红包">
+            <div class="icon2">
+                <i class="smallicon7"></i>
+            </div><span>抢红包</span></a></li>
+        <li style="margin-right:0"></li>
+    </ul>
+</div>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/vue.min.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/baritem/mine.js" charset="utf-8"></script>
+</body>
+</html>

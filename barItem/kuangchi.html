@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>矿池</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/kuangchi.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="mui-content" style="padding-top:44px" id="kuangchi">
+    <header class="mui-bar mui-bar-nav own-main-background-color">
+        <h1 id="nav-title" class="mui-title">矿池</h1>
+    </header>
+    <div class="kuangchibox">
+        <ul class="kuangjinum">
+            <li><p>矿池算力(T)</p><h2>(截止昨天)</h2>
+                <div v-text="myHomePower==null?'0':myHomePower"></div></li>
+            <li v-on:tap="looknum"><p>总矿工数</p><h2>(截止昨天)</h2>
+                <div v-text="myHomeAll==null?'0':myHomeAll"></div></li>
+        </ul>
+        <ul class="tapbox">
+            <li class="tapactive" data-index="show1"><span>直推</span></li>
+            <li data-index="show2"><span>团队</span></li>
+        </ul>
+        <ul class="showbox">
+            <li id="show1" class="showactive">
+                <div class="mui-scroll-wrapper scw" id="one">
+                    <ul class="mui-scroll ms" id="scroll1">
+                        <li v-for="(zitem,index) in zhi" v-on:tap="lookinfo(zitem.myId,zitem.tel)" v-show="zitem.myId!=''">
+                            <div class="head">
+                                <img :src="imgurl[index]" alt="" />
+                            </div>
+                            <div class="leftbox">
+                                <p><span v-text="&quot;ID：&quot;+zitem.myId">我是超级英雄</span></p>
+                                <p v-text="mygrade(zitem.grade)">普通矿工</p>
+                            </div>
+                            <div class="middlebox">
+                                <p v-text="&quot;算力：&quot;+zitem.power"></p>
+                                <p v-text="&quot;直推：&quot;+zitem.myHomeCount+&quot;人&quot;"></p>
+                            </div>
+                            <div class="rightbox">
+                                <p v-text="'矿机：'+zitem.tower+'台'"></p>
+                                <p v-text="&quot;团队：&quot;+zitem.myHome+&quot;人&quot;"></p>
+                            </div></li>
+                    </ul>
+                </div></li>
+            <li id="show2">
+                <div class="mui-scroll-wrapper scw" id="two">
+                    <ul class="mui-scroll ms" id="scroll2">
+                        <li v-for="(titem,index) in tuan" v-show="titem.myId!=''">
+                            <div class="head">
+                                <img :src="imgurl2[index]" alt="" />
+                            </div>
+                            <div class="leftbox">
+                                <p><span v-text="&quot;ID：&quot;+titem.myId">我是超级英雄</span></p>
+                                <p v-text="mygrade(titem.grade)">普通矿工</p>
+                            </div>
+                            <div class="middlebox">
+                                <p v-text="&quot;算力：&quot;+titem.power"></p>
+                                <p v-text="&quot;直推：&quot;+titem.myHomeCount+&quot;人&quot;"></p>
+                            </div>
+                            <div class="rightbox">
+                                <p v-text="'矿机：'+titem.tower+'台'"></p>
+                                <p v-text="&quot;团队：&quot;+titem.myHome+&quot;人&quot;"></p>
+                            </div></li>
+                    </ul>
+                </div></li>
+        </ul>
+    </div>
+    <div id="popover" class="mui-popover mui-popover-bottom">
+        <div v-show="onepopo==true">
+            <div class="toptitle">
+                <p>直推信息</p>
+                <div class="iconfont closebtn" v-on:tap="closeinfo">
+                    
+                </div>
+            </div>
+            <ul class="zhituibox">
+                <li><span>总直推数:</span> <span v-text="zhituiobj.num"></span></li>
+                <li><span>四级矿工:</span> <span v-text="zhituiobj.four"></span></li>
+                <li><span>三级矿工:</span> <span v-text="zhituiobj.three"></span></li>
+                <li><span>二级矿工:</span> <span v-text="zhituiobj.two"></span></li>
+                <li><span>一级矿工:</span> <span v-text="zhituiobj.one"></span></li>
+                <li><span>在产矿工:</span> <span v-text="zhituiobj.common"></span></li>
+            </ul>
+        </div>
+        <div class="account" id="account" v-show="twopopo==true">
+            <div class="toptitle">
+                <p>个人信息</p>
+                <div class="iconfont closebtn" v-on:tap="closeinfo">
+                    
+                </div>
+            </div>
+            <ul class="conlist">
+                <li><span>ID</span> <input type="text" name="" id="accountName" :value="tradeinfo.id" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#accountName">复制</button></li>
+                <li><span>TEL</span> <input type="text" name="" id="openingBank" :value="tradeinfo.tel" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#openingBank">复制</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="shuaxin">
+        <span class="iconfont" style="font-size:.4rem"></span>
+    </div>
+</div>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/imgload.js" charset="utf-8"></script>
+<script src="../js/libs/clipboard.min.js" charset="utf-8"></script>
+<script src="../js/libs/vue.min.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/baritem/kuangchi.js" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>个人资料</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/person.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="mui-content" id="person" style="padding-top:.2rem">
+    <a class="headbox" href="sethead.html" data-title="设置头像"><img :src="photo" alt="" id="myimg" /></a>
+    <ul class="infobox">
+        <li><p>上级ID</p>
+            <div v-text="parentId">
+                111222
+            </div></li>
+        <li><p>我的ID</p>
+            <div v-text="myid">
+                123456
+            </div></li>
+        <li><p>等级</p>
+            <div v-text="mygrade(grade)">
+                普通矿工
+            </div></li>
+    </ul>
+    <ul class="lists">
+        <li><a class="telcheck"><b>手机号验证</b>
+            <div>
+                <span v-text="tel">15899966668</span>
+                <i class="succ" v-show="tel!=''">已认证</i>
+                <i class="none" v-show="tel==''">已认证</i>
+            </div></a></li>
+        <li><a :href="gethref('real_name.html')" :data-title="gettitle('实名认证')"><b>实名认证</b>
+            <div>
+                <span v-text="accountName">薯条</span>
+                <i class="none" v-show="accountName==''">未认证</i>
+                <i class="succ" v-show="accountName!=''">已认证</i>
+            </div></a></li>
+        <li><a :href="gethref('real_bankcard.html')" :data-title="gettitle('银行卡认证')"><b>银行卡认证</b>
+            <div>
+                <span v-text="openingBank">工商银行</span>
+                <i class="succ" v-show="openingBank!=''">已认证</i>
+                <i class="none" v-show="openingBank==''">未认证</i>
+            </div></a></li>
+        <li><a href="javascript:;" v-show="!obligate" data-title="刷脸认证"><b>刷脸认证</b>
+            <div>
+                <i class="none">未认证</i>
+            </div></a><a href="obligate.html" v-show="obligate" data-title="预留手机号"><b>预留手机号</b></a></li>
+    </ul>
+    <div class="iconfont xia">
+        
+    </div>
+    <ul class="two">
+        <li><a :href="wxurl('weixin.html')" data-title="设置微信"><b>微信</b>
+            <div style="margin-right:.1rem">
+                <span v-text="weixin"></span>
+                <i class="iconfont"></i>
+            </div></a></li>
+        <li><a :href="alipayurl('alipay.html')" data-title="设置支付宝"><b>支付宝</b>
+            <div style="margin-right:.1rem">
+                <span v-text="alipay"></span>
+                <i class="iconfont"></i>
+            </div></a></li>
+        <li><a href="ethpurse.html" data-title="虚拟钱包"><b>虚拟钱包</b>
+            <div style="margin-right:.1rem">
+                <span></span>
+                <i class="iconfont"></i>
+            </div></a></li>
+        <li><a href="fixpass.html" data-title="修改登录密码"><b>修改登录密码</b>
+            <div style="margin-right:.1rem">
+                <i class="iconfont"></i>
+            </div></a></li>
+        <li><a :href="secondUrl()" :data-title="secondTitle()"><b v-text="secondTitle()">修改交易密码</b>
+            <div style="margin-right:.1rem">
+                <i class="iconfont"></i>
+            </div></a></li>
+    </ul>
+</div>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/vue.min.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/sub/person.js" charset="utf-8"></script>
+</body>
+</html>

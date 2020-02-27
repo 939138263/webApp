@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>银行卡</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/real_name.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="mui-content" id="realbankcard">
+    <div class="shuru" v-if="cardNumber==&quot;&quot;">
+        <p class="tishi">请绑定持卡人本人的银行卡</p>
+        <div class="input">
+            <label for="username">真实姓名</label>
+            <input type="text" name="username" id="username" placeholder="请输入真实姓名" />
+        </div>
+        <div class="input">
+            <label for="idcard">身份证号</label>
+            <input type="text" name="idcard" id="idcard" placeholder="请输入身份证号" />
+        </div>
+        <div class="input">
+            <label for="cardnumber">银行卡号</label>
+            <input type="text" name="cardnumber" id="cardnumber" placeholder="请输入银行卡号" />
+        </div>
+        <p class="tishi">银行预留手机号验证</p>
+        <div class="input">
+            <label for="banktel">预留手机</label>
+            <input type="text" name="banktel" id="banktel" placeholder="请输入银行预留手机号" />
+        </div>
+        <div class="yzbox">
+            <div class="input">
+                <label for="yzcode">验证码</label>
+                <input type="text" name="yzcode" id="yzcode" placeholder="验证码" />
+            </div>
+            <button class="send" type="button" v-show="showbtn">发送短信</button>
+        </div>
+        <button type="button" class="post" v-show="showbtn">提交</button>
+        <br />
+        <p class="tishi">*请务必提交本人信息进行认证，盗用他人信息认证导致封号，责任自负。</p>
+    </div>
+    <div class="show" style="padding:.5rem .4rem" v-else="">
+        <div class="status">
+            <img src="../img/sub/tag.png" alt="" />
+        </div>
+        <div class="myinfo">
+            <p v-text="openingBank" style="text-align:right;margin-bottom:.2rem;margin-top:0"></p>
+            <p style="text-align:right;font-size:.24rem;color:#bbb;margin-bottom:.3rem;margin-top:0">储蓄卡</p>
+            <div class="showcardbox">
+                <div>
+                    ****
+                </div>
+                <div>
+                    ****
+                </div>
+                <div>
+                    ****
+                </div>
+                <div v-text="cardNumber"></div>
+            </div>
+            <p v-text="'持卡人：'+accountName" style="font-size:.3rem;text-align:left;margin-top:.5rem"></p>
+        </div>
+    </div>
+</div>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/libs/vue.min.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/sub/real_bankcard.js" charset="utf-8"></script>
+<script></script>
+</body>
+</html>

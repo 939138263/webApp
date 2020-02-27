@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>矿市</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/kuangshi.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+    <style>.chart{height:200px;margin:0;padding:0}</style>
+</head>
+<body>
+<div class="mui-content" style="padding-top:44px" id="kuangshi">
+    <header class="mui-bar mui-bar-nav own-main-background-color">
+        <h1 id="nav-title" class="mui-title">矿市</h1>
+    </header>
+    <div class="kuangshibox" style="position:relative">
+        <ul class="kuangshinum">
+            <li><span v-text="nowprice"></span><i style="font-size:.24rem;font-style:normal">CNY</i></li>
+            <li><p v-text="'高：'+high"></p><p v-text="'量：'+amount"></p></li>
+        </ul>
+        <ul class="tapbox">
+            <li class="tapactive" data-index="1"><span>价格<i></i></span></li>
+            <li data-index="3"><span>点对点<i></i></span></li>
+            <li data-index="4"><span>信箱<i></i></span></li>
+        </ul>
+        <ul class="showbox">
+            <li id="show1" class="showactive">
+                <div class="mui-scroll-wrapper scw">
+                    <div class="mui-scroll ms" id="scroll1">
+                        <div class="mui-content-padded">
+                            <div class="chart" id="lineChart" style="height:4rem"></div>
+                        </div>
+                    </div>
+                </div></li>
+            <li id="show3">
+                <div class="mui-scroll-wrapper scw">
+                    <div class="mui-scroll ms" id="scroll3">
+                        <ul class="inputbox">
+                            <li class="input"><label for="idnum">ID</label><input type="tel" id="idnum" placeholder="请输入买家的ID号" /></li>
+                            <li class="input"><label for="selnum">数量</label><input type="text" id="selnum" placeholder="请输入售出的数量" /></li>
+                            <li class="input"><label for="ydnum">约定价</label><input type="text" id="ydnum" v-model.number="ydnum" v-on:input="limitsmall" placeholder="请输入约定价格" /></li>
+                            <li><p style="font-size:.22rem;margin-top:.1rem">*交易手续费<span v-text="feeres"></span>；如转100VRC，系统将扣<span v-text="feenum"></span>VRC。</p></li>
+                            <li><a class="selbtn" href="javascript:;" id="selbtn">卖出</a></li>
+                        </ul>
+                        <div class="xuzhi" style="text-align:center;padding-top:.15rem;line-height:.3rem">
+                            <a href="../sub/xuzhi.html?newid=0" data-title="点对点交易须知"><span class="iconfont"></span> <span>点对点交易须知</span></a>
+                        </div>
+                    </div>
+                </div></li>
+            <li id="show4">
+                <div class="mui-scroll-wrapper scw" id="two">
+                    <div class="mui-scroll ms" id="scroll4">
+                        <ul class="messagebox" href="#topPopover">
+                            <li v-for="lists in list">
+                                <div class="code">
+                                    <div class="codeleft">
+                                        <div class="circle"></div>
+                                        <p v-text="'单号：'+lists.code">单号：666777888999</p>
+                                    </div>
+                                    <div class="time" v-text="lists.time">
+                                        06月12月 15时30分
+                                    </div>
+                                </div>
+                                <div class="info" v-text="lists.remark">
+                                    收到风刀霜剑（ID：123456）转入10VRC，请确认接收。
+                                </div>
+                                <div class="btnbox">
+                                    <button class="bottomPopover" type="button" v-show="lists.pushTel!=null" v-on:tap="lookinfo(lists)" v-text="ortitle(lists.state)">交易账号</button>
+                                    <button class="succ" type="button" v-show="lists.newStep!=0" :class="" v-on:tap="confirmtrade(lists.amount,lists.id,lists.newStep,$event)">确认交易</button>
+                                    <button class="esc" type="button" v-show="lists.cancelStep!=0" v-on:tap="esctrade(lists.id,lists.cancelStep)">取消交易</button>
+                                </div></li>
+                        </ul>
+                    </div>
+                </div></li>
+        </ul>
+        <ul class="guadanbox">
+            <li><a href="../sub/xinshou.html" data-title="新手挂单">
+                <div class="gdbg gd1"></div><span>新手挂单</span></a></li>
+            <li><a href="../sub/guonei.html" data-title="进阶挂单">
+                <div class="gdbg gd3"></div><span>进阶挂单</span></a></li>
+            <li><a href="../sub/gaoshou.html" data-title="高手挂单">
+                <div class="gdbg gd2"></div><span>高手挂单</span></a></li>
+            <li><a href="../sub/inter.html" data-title="国际挂单">
+                <div class="gdbg gd4"></div><span>国际挂单</span></a></li>
+        </ul>
+    </div>
+    <div id="popover" class="mui-popover mui-popover-bottom" style="height:6.5rem">
+        <div class="account" id="account">
+            <div class="toptitle">
+                <p v-show="tradeinfo.state==-1">卖家资料</p>
+                <p v-show="tradeinfo.state==1">买家资料</p>
+                <div class="iconfont closebtn" v-on:tap="closeinfo">
+                    
+                </div>
+            </div>
+            <ul class="conlist">
+                <li><span>开户名</span> <input type="text" name="" id="accountName" :value="tradeinfo.accountName" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#accountName">复制</button></li>
+                <li><span>开户行</span> <input type="text" name="" id="openingBank" :value="tradeinfo.openingBank" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#openingBank">复制</button></li>
+                <li><span>账号</span> <input type="text" name="" id="cardNumber" :value="tradeinfo.cardNumber" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#cardNumber">复制</button></li>
+                <li><span>微信</span> <input type="text" name="" id="weixin" :value="tradeinfo.weixin" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#weixin">复制</button></li>
+                <li><span>支付宝</span> <input type="text" name="" id="alipay" :value="tradeinfo.alipay" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#alipay">复制</button></li>
+                <li><span>手机号</span> <input type="text" name="" id="tel" :value="tradeinfo.tel" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#tel">复制</button></li>
+                <li><span v-text="ytwallet"></span> <input type="text" name="" id="yt" :value="address" class="accountinput" readonly="" /> <button type="button" class="copy" data-clipboard-target="#yt">复制</button></li>
+                <li><p>请严格按照以上资料进行打款交易，请勿相信中介！非平台公布资料交易，后果自负！</p></li>
+            </ul>
+        </div>
+    </div>
+    <div class="shuaxin">
+        <span class="iconfont" style="font-size:.4rem"></span>
+    </div>
+</div>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/clipboard.min.js" charset="utf-8"></script>
+<script src="../js/libs/vue.min.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/libs/echarts.common.min.js" charset="utf-8"></script>
+<script src="../js/libs/myzhexian.js" charset="utf-8"></script>
+<script src="../js/baritem/kuangshi.js" charset="utf-8"></script>
+</body>
+</html>

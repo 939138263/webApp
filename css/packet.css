@@ -1,0 +1,162 @@
+.info,.shuaxin,.shuaxin span {
+    text-align: center
+}
+
+.own-main-background-color {
+    background: rgba(30,107,151,.3);
+    position: fixed;
+    top: 0;
+    z-index: 999
+}
+
+.own-main-background-color #nav-title {
+    color: #00CFE7
+}
+
+.mui-scroll {
+    padding: 0 .3rem
+}
+
+.packetbox li {
+    height: 1.9rem;
+    margin-bottom: .3rem;
+    background: #d3373c;
+    position: relative
+}
+
+.flexright,.flexright img {
+    width: 1.32rem;
+    height: 1.2rem
+}
+
+.flexright {
+    position: absolute;
+    top: -.05rem;
+    right: -.05rem
+}
+
+.no {
+    background: #f27b7f
+}
+
+.no h2,.no p {
+    opacity: .4
+}
+
+.flexbox {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%
+}
+
+.flexbox img {
+    height: .94rem;
+    width: .8rem;
+    margin-left: .3rem
+}
+
+.flexbox .flexmiddle {
+    margin-left: .2rem
+}
+
+.flexbox p {
+    font-size: .24rem;
+    color: #fff;
+    margin-bottom: .2rem
+}
+
+.mark,.openbtn {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0
+}
+
+.flexbox h2 {
+    font-size: .24rem;
+    color: #fcde9c;
+    font-weight: 400
+}
+
+.markbox {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 999;
+    background: rgba(0,0,0,.7)
+}
+
+.mark {
+    width: 5.5rem;
+    height: 7.4rem;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: url(../img/packet/redpacket1.png);
+    background-size: 5.5rem 7.4rem
+}
+
+.openbtn {
+    width: 1.4rem;
+    height: 1.4rem;
+    bottom: 1rem;
+    background: url(../img/packet/openbtn.png);
+    background-size: 1.4rem 1.4rem
+}
+
+.closebtn {
+    font-size: .6rem;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: .6rem;
+    height: .6rem;
+    color: #9f351f;
+    margin: .1rem 0 0 .1rem
+}
+
+.logo {
+    display: block;
+    width: 1.02rem;
+    height: 1.02rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+.info {
+    color: #ebcd9a;
+    font-size: .38rem;
+    margin-top: 2.5rem
+}
+
+.shuaxin {
+    background: rgba(30,107,151,.3);
+    width: .5rem;
+    height: .5rem;
+    color: #02D2F5;
+    position: fixed;
+    z-index: 999;
+    ++
+    bottom: 70px;
+    right: .3rem
+}
+
+.shuaxin span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: .5rem;
+    transition: all .4s linear;
+    -webkit-transition: all .4s linear;
+    -moz-transition: all .4s linear;
+    -o-transition: all .4s linear
+}

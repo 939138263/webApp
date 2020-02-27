@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/libs/cropper.min.css" />
+    <link rel="stylesheet" href="../css/libs/mui.cropper.css" />
+    <link rel="stylesheet" href="../css/notice.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+    <style>.avatar img{width:100%;display:block;cursor:pointer}</style>
+</head>
+<body>
+<div class="mui-content">
+    <div class="avatar">
+        <a href="#cropper-sheet"><img id="avatar" src="" /></a>
+    </div>
+    <div id="cropper-sheet" class="mui-popover mui-popover-bottom mui-popover-action">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell"><a data-type="camera">拍照</a></li>
+            <li class="mui-table-view-cell"><a data-type="gallery">选择相册</a></li>
+        </ul>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell"><a href="#cropper-sheet"><b style="color:red">取消</b></a></li>
+        </ul>
+    </div>
+    <div class="mui-cropper-modal mui-modal">
+        <div class="cropper-image-container">
+            <img id="image" src="" />
+        </div>
+        <div class="cropper-btn-group">
+            <span class="cropper-cancel">取消</span>
+            <span class="cropper-ok">裁剪</span>
+        </div>
+    </div>
+</div>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/cropper.min.js" charset="utf-8"></script>
+<script src="../js/libs/mui.cropper.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/sub/sethead.js" charset="utf-8"></script>
+</body>
+</html>

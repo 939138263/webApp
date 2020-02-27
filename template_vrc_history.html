@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/mui.min.css" />
+    <link rel="stylesheet" href="css/own.css" />
+    <link rel="stylesheet" href="css/public.css" />
+    <script src="js/function.js" charset="utf-8"></script>
+    <style>body,html{background:url(img/bg.jpg);background-size:cover}.own-main-background-color{background:rgba(30,107,151,.3);position:fixed;top:0;z-index:999}.own-main-background-color #nav-title{color:#00cfe7}.edit{font-size:.24rem;color:#d0d3d7;position:absolute;right:.3rem;display:flex;align-items:center;top:0;bottom:0}.mui-loader{position:absolute;top:25%;width:100%;height:60%;color:#888;font-size:14px;text-align:center}.mui-fadein{opacity:1}.mui-fadeout{opacity:0}@keyframes fadein{from{opacity:0}to{opacity:1}}@-webkit-keyframes fadein{from{opacity:0}to{opacity:1}}@keyframes fadeout{from{opacity:1}to{opacity:0}}@-webkit-keyframes fadeout{from{opacity:1}to{opacity:0}}</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav own-main-background-color">
+    <a class="mui-action-back mui-icon iconfont" style="color:#d0d3d7" onclick="mui.back()"></a>
+    <h1 id="nav-title" class="mui-title"></h1>
+    <a href="sub/history.html" class="edit" data-title="历史记录">历史记录</a>
+</header>
+<div class="mui-loader">
+    加载中...
+</div>
+<script src="js/mui.min.js"></script>
+<script>function initPC_second(){var e=mui.preload({url:"template_vrc_second.html",id:"template_second",styles:{popGesture:"hide"}}),t=mui.preload({url:"",id:"sub_template_second",styles:{top:"44px",popGesture:"hide"}});e.append(t)}mui.init();var titleElem=document.getElementById("nav-title"),contentWebview=null,self=null;mui.plusReady(function(){initPC_second(),self=plus.webview.currentWebview(),template=plus.webview.getWebviewById("template_second"),subWebview=plus.webview.getWebviewById("sub_template_second"),mui("header").on("tap",".edit",function(){var e=this.getAttribute("data-title");console.log(e),console.log(this.href),mui.fire(template,"updateHeader",{title:e,href:this.href}),subWebview.getURL()==this.href?subWebview.show():(subWebview.loadURL(this.href),subWebview.addEventListener("loaded",function(){setTimeout(function(){subWebview.show()},50)})),template.show("slide-in-right",150)})}),window.addEventListener("sxdata",function(e){console.log("个人资料页刷新"),self.children()[0].reload()}),window.addEventListener("updateHeader",function(e){var t=e.detail.title,i=e.detail.target,n=e.detail.aniShow;titleElem.innerHTML=t,titleElem.className="mui-title mui-fadein",mui.os.android&&n&&parseFloat(mui.os.version)>=4.4&&(null==contentWebview&&(contentWebview=self.children()[0]),contentWebview.getURL()!=i?contentWebview.loadURL(i):contentWebview.show(),setTimeout(function(){self.show(n)},10))}),mui.back=function(){self.hide("auto"),setTimeout(function(){titleElem.className="mui-title mui-fadeout",titleElem.innerText="",null==contentWebview&&(contentWebview=self.children()[0]),contentWebview.clear()},350)}</script>
+</body>
+</html>

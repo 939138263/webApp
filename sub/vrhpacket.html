@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>vrh钱包</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/own.css" />
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/vrhpacket.css" />
+    <script src="../js/function.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="mui-content" id="vrhpacket">
+    <div class="kuangchibox">
+        <ul class="kuangjinum">
+            <li><p>可用VRC</p>
+                <div v-text="kyvrc"></div></li>
+        </ul>
+        <ul class="tapbox">
+            <li class="tapactive" data-index="show1"><span>充值</span></li>
+            <li data-index="show2"><span>提现</span></li>
+        </ul>
+        <ul class="showbox">
+            <li id="show1" class="showactive" style="height:10rem">
+                <div class="mui-scroll-wrapper scw" id="one">
+                    <div class="mui-scroll ms" id="scroll1">
+                        <div class="chongzhi">
+                            <p>向如下地址汇入VRH完成充值</p>
+                            <input type="text" name="" id="chongzhiurl" :value="chongzhiurl" style="width:100%;text-align:center;line-height:.44rem;color:#d0d3d7!important;display:inline-block;font-size:.26rem" readonly="" />
+                            <div class="btn">
+                                <a href="javascript:;" class="copy" data-clipboard-target="#chongzhiurl">一键复制</a>
+                                <a href="javascript:;" class="chongzhi" style="display:none">充值</a>
+                            </div>
+                            <h2 style="text-align:left;font-weight:400;font-size:.24rem;color:#d0d3d7;line-height:.44rem">警告：该地址仅供外埠平台（例如PC版钱包、交易所等）往vrc平台充值使用，不能作为提现地址进行内部转账，否则会导致vrc丢失并无法找回，此损失由用户自行承担。如需内部转账请用平台的点对点和挂单功能。</h2>
+                            <p style="text-align:left">pc版钱包下载地址：http://vrcvip.com/wallet/VRH-qt.exe</p>
+                        </div>
+                    </div>
+                </div></li>
+            <li id="show2" style="height:10rem">
+                <div class="mui-scroll-wrapper scw" id="two">
+                    <div class="mui-scroll ms" id="scroll2">
+                        <ul class="inputbox">
+                            <li class="input"><label for="idnum">vrh钱包地址</label><input type="tel" id="idnum" v-model="packeturl" placeholder="vrh钱包地址" /></li>
+                            <li class="input"><label for="selnum">vrh数量</label><input type="text" id="selnum" v-model.number="vrhnum" placeholder="vrh数量" v-on:input="limitsmall" /></li>
+                            <li style="margin-top:1rem"><a class="tixian" href="javascript:;" id="selbtn" v-on:tap="selvrh($event)">提现</a><p style="margin-top:.2rem;text-align:left;font-size:.24rem;color:#d0d3d7">警告：此功能是将vrc转换为vrh并转向外埠平台（例如PC钱包、交易所等）使用，严禁向vrc平台提供的充值地址进行内部转账，请再三确认正确vrh钱包地址再进行提现操作（提现操作不可逆），否则会导致vrc永久丢失且无法找回，此损失由用户自行承担。如需内部转账请用平台的点对点和挂单功能。</p><p style="margin-top:.3rem;font-size:.26rem;color:#d0d3d7;text-align:left">pc版钱包下载地址：http://vrcvip.com/wallet/VRH-qt.exe</p></li>
+                        </ul>
+                    </div>
+                </div></li>
+        </ul>
+    </div>
+</div>
+<script src="../js/mui.min.js"></script>
+<script src="../js/libs/jquery.min.js" charset="utf-8"></script>
+<script src="../js/libs/ajax.js" charset="utf-8"></script>
+<script src="../js/libs/clipboard.min.js" charset="utf-8"></script>
+<script src="../js/libs/vue.min.js" charset="utf-8"></script>
+<script src="../js/sub/vrhpacket.js" charset="utf-8"></script>
+</body>
+</html>
